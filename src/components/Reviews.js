@@ -10,7 +10,7 @@ class Reviews extends React.Component {
   getThisTourReview = async () => {
     try {
       const response = await apiroute.get("/api/v1/reviews", {
-        params: { tour: this.props.currentTour }
+        params: { tour: this.props.currentTour },
       });
       //console.log(response);
       this.setState({ tourReviews: response });
@@ -24,13 +24,13 @@ class Reviews extends React.Component {
       return <div>Loading...</div>;
     }
 
-    const reviews = this.state.tourReviews.data.data.doc.map(el => {
+    const reviews = this.state.tourReviews.data.data.doc.map((el) => {
       return (
         <div className="comment" key={el._id}>
           <span className="avatar">
             <img
               src={`https://natours-zam.herokuapp.com/img/users/${el.user.photo}`}
-              alt="{el.user.photo}"
+              alt="{{el.user.photo}}"
             />
           </span>
           <div className="content">
@@ -47,7 +47,7 @@ class Reviews extends React.Component {
     return <React.Fragment>{reviews}</React.Fragment>;
   }
 
-  addReview = async event => {
+  addReview = async (event) => {
     event.preventDefault();
     if (!this.state.jwtToken) {
       alert("You must be logged in order to submit a revew.");
@@ -57,14 +57,14 @@ class Reviews extends React.Component {
       await apiroute("/api/v1/reviews", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${this.state.jwtToken}`
+          Authorization: `Bearer ${this.state.jwtToken}`,
         },
         data: {
           review: this.state.textReview,
           rating: this.state.tourRating,
           user: this.props.currentUserRedux.data.doc._id,
-          tour: this.props.currentTour
-        }
+          tour: this.props.currentTour,
+        },
       });
       window.location.reload(true);
     } catch (err) {
@@ -99,7 +99,9 @@ class Reviews extends React.Component {
                 <input
                   type="text"
                   placeholder="Rate from 1 to 5..."
-                  onChange={e => this.setState({ tourRating: e.target.value })}
+                  onChange={(e) =>
+                    this.setState({ tourRating: e.target.value })
+                  }
                 />
               </div>
 
@@ -107,7 +109,9 @@ class Reviews extends React.Component {
                 <label>Review</label>
                 <textarea
                   value={this.state.textReview}
-                  onChange={e => this.setState({ textReview: e.target.value })}
+                  onChange={(e) =>
+                    this.setState({ textReview: e.target.value })
+                  }
                 ></textarea>
               </div>
               <button className="ui primary submit button">Add Review</button>
@@ -119,7 +123,7 @@ class Reviews extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   //console.log(state);
   return state;
 };

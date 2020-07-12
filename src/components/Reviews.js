@@ -30,7 +30,7 @@ class Reviews extends React.Component {
           <span className="avatar">
             <img
               src={`https://natours-zam.herokuapp.com/img/users/${el.user.photo}`}
-              alt="{{el.user.photo}}"
+              alt={`${el.user.photo}`}
             />
           </span>
           <div className="content">
